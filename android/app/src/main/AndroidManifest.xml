@@ -3,6 +3,11 @@
         android:label="boat_charge_planner"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB4v_VWf3u0DrbRbaIvyFMcjYKxBFJ_nwU" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
