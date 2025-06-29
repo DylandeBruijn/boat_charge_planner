@@ -6,8 +6,6 @@ version: 1.0.0+1
 environment:
   sdk: ^3.8.1
 
-assets: .env
-
 dependencies:
   flutter:
     sdk: flutter
@@ -16,7 +14,6 @@ dependencies:
   http: ^1.4.0
   fl_chart: ^1.0.0
   geolocator: ^14.0.1
-  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
