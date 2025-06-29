@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "com.example.boat_charge_planner"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
