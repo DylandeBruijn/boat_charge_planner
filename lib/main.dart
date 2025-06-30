@@ -41,6 +41,7 @@ class _BoatChargePlannerAppState extends State<BoatChargePlannerApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Row(
