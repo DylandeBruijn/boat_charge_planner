@@ -15,7 +15,6 @@ class BoatChargePlannerApp extends StatefulWidget {
 class _BoatChargePlannerAppState extends State<BoatChargePlannerApp> {
   late GoogleMapController mapController;
   final Set<Marker> _markers = {};
-
   final LatLng _center = const LatLng(54.0, -2.0);
 
   void _onMapCreated(GoogleMapController controller) {
