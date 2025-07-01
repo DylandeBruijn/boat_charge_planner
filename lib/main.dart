@@ -27,11 +27,6 @@ class _BoatChargePlannerAppState extends State<BoatChargePlannerApp> {
         Marker(
           markerId: MarkerId('marker_${_markers.length}'),
           position: position,
-          infoWindow: InfoWindow(
-            title: 'Charge Point ${_markers.length + 1}',
-            snippet:
-                'Lat: ${position.latitude.toStringAsFixed(4)}, Lng: ${position.longitude.toStringAsFixed(4)}',
-          ),
         ),
       );
     });
