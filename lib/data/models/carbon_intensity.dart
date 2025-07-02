@@ -16,6 +16,11 @@ class Intensity {
       _ => throw FormatException('Invalid JSON format for Intensity'),
     };
   }
+
+  @override
+  String toString() {
+    return 'Intensity(forecast: $forecast, actual: $actual, index: $index)';
+  }
 }
 
 class CarbonIntensity {
@@ -43,6 +48,11 @@ class CarbonIntensity {
         ),
       _ => throw FormatException('Invalid JSON format for CarbonIntensity'),
     };
+  }
+
+  @override
+  String toString() {
+    return 'CarbonIntensity(from: $from, to: $to, intensity: $intensity)';
   }
 }
 
