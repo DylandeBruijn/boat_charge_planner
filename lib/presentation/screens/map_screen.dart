@@ -1,3 +1,5 @@
+import 'package:boat_charge_planner/data/models/carbon_intensity.dart';
+import 'package:boat_charge_planner/data/repositories/carbon_intensity_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
@@ -19,7 +21,6 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   late GoogleMapController mapController;
-  final Map<String, MarkerData> _markersData = {};
   final Set<Marker> _markers = {};
   final LatLng _center = const LatLng(54.0, -2.0);
 
@@ -27,27 +28,30 @@ class _MapScreenState extends State<MapScreen> {
     mapController = controller;
   }
 
-  void _createMarker(LatLng position) {
+  void _createMarker(LatLng position) async {
+    final markerNumber = _markers.length + 1;
+    final carbonIntensity = await CarbonIntensityApiRepository()
+        .getTodaysCarbonIntensity();
+
     setState(() {
       final markerId = const Uuid().v4();
-      final markerData = MarkerData(
-        id: markerId,
-        position: position,
-        title: 'Charging Point ${_markersData.length + 1}',
-      );
 
-      _markersData[markerId] = markerData;
       _markers.add(
         Marker(
           markerId: MarkerId(markerId),
           position: position,
-          onTap: () => _showMarkerModal(markerData),
+          onTap: () =>
+              _showMarkerModal(markerNumber, markerId, carbonIntensity),
         ),
       );
     });
   }
 
-  void _showMarkerModal(MarkerData markerData) {
+  void _showMarkerModal(
+    int markerNumber,
+    String markerId,
+    List<CarbonIntensity> carbonIntensity,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -60,20 +64,8 @@ class _MapScreenState extends State<MapScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        markerData.title,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Text(markerData.id),
-                    ],
-                  ),
-                  SizedBox(height: 100),
+                  Text('Marker $markerNumber'),
+                  Text(carbonIntensity[0].toString()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -87,7 +79,7 @@ class _MapScreenState extends State<MapScreen> {
                       FilledButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          _removeMarker(markerData.id);
+                          _removeMarker(markerId);
                         },
                         child: Text('Remove'),
                       ),
@@ -104,7 +96,6 @@ class _MapScreenState extends State<MapScreen> {
 
   void _removeMarker(String markerId) {
     setState(() {
-      _markersData.remove(markerId);
       _markers.removeWhere((marker) => marker.markerId.value == markerId);
     });
   }
