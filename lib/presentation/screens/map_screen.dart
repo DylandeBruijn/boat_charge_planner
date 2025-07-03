@@ -1,5 +1,3 @@
-import 'package:boat_charge_planner/data/models/carbon_intensity.dart';
-import 'package:boat_charge_planner/data/repositories/carbon_intensity_repository.dart';
 import 'package:boat_charge_planner/presentation/widgets/custom_app_bar.dart';
 import 'package:boat_charge_planner/presentation/widgets/map.dart';
 import 'package:boat_charge_planner/presentation/widgets/marker_bottom_sheet/marker_bottom_sheet.dart';
