@@ -47,6 +47,7 @@ class _MapScreenState extends State<MapScreen> {
   void _showMarkerBottomSheet(String markerId, int markerNumber) {
     showModalBottomSheet(
       context: context,
+      constraints: const BoxConstraints(minHeight: 372),
       builder: (BuildContext context) {
         return MarkerBottomSheet(
           markerNumber: markerNumber,
