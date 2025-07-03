@@ -32,6 +32,14 @@ class CarbonIntensityCard extends StatelessWidget {
     return Theme.of(context).colorScheme.surfaceContainerLow;
   }
 
+  String _formatTimeRange(DateTime from, DateTime to) {
+    final fromTime =
+        '${from.hour.toString().padLeft(2, '0')}:${from.minute.toString().padLeft(2, '0')}';
+    final toTime =
+        '${to.hour.toString().padLeft(2, '0')}:${to.minute.toString().padLeft(2, '0')}';
+    return '$fromTime - $toTime';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,28 +51,26 @@ class CarbonIntensityCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CarbonIntensityChip(index: carbonIntensity.intensity.index),
-          const SizedBox(height: 12),
           Row(
             children: [
-              Text(
-                'Time:',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.w600,
-                ),
+              Icon(
+                Icons.access_time,
+                size: 20,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
-              const SizedBox(width: 4),
+              const SizedBox(width: 8),
               Text(
-                '${carbonIntensity.from.hour.toString().padLeft(2, '0')}:${carbonIntensity.from.minute.toString().padLeft(2, '0')} - ${carbonIntensity.to.hour.toString().padLeft(2, '0')}:${carbonIntensity.to.minute.toString().padLeft(2, '0')}',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                _formatTimeRange(carbonIntensity.from, carbonIntensity.to),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 12),
+          CarbonIntensityChip(index: carbonIntensity.intensity.index),
+          const SizedBox(height: 12),
           Row(
             children: [
               Text(

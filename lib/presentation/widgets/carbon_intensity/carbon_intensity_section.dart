@@ -47,7 +47,7 @@ class CarbonIntensitySection extends StatelessWidget {
           const SizedBox(height: 8),
         ],
         SizedBox(
-          height: 140,
+          height: 160,
           child: FutureBuilder<List<CarbonIntensity>>(
             future: carbonIntensity,
             builder: (context, snapshot) {
