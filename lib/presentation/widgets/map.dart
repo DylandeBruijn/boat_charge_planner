@@ -24,6 +24,7 @@ class Map extends StatelessWidget {
       onLongPress: onLongPress,
       markers: markers,
       initialCameraPosition: CameraPosition(target: center, zoom: zoom),
+      mapToolbarEnabled: false,
     );
   }
 }
