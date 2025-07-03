@@ -13,6 +13,24 @@ class CarbonIntensitySection extends StatelessWidget {
     required this.carbonIntensity,
   });
 
+  int _findBestChargeTimeIndex(List<CarbonIntensity> data) {
+    final lowestIntensity = data.fold<CarbonIntensity>(
+      data.first,
+      (prev, curr) =>
+          curr.intensity.forecast < prev.intensity.forecast ? curr : prev,
+    );
+    return data.indexOf(lowestIntensity);
+  }
+
+  int _findWorstChargeTimeIndex(List<CarbonIntensity> data) {
+    final highestIntensity = data.fold<CarbonIntensity>(
+      data.first,
+      (prev, curr) =>
+          curr.intensity.forecast > prev.intensity.forecast ? curr : prev,
+    );
+    return data.indexOf(highestIntensity);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,14 +51,20 @@ class CarbonIntensitySection extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data!.isNotEmpty) {
               final data = snapshot.data!;
+              final bestChargeTimeIndex = _findBestChargeTimeIndex(data);
+              final worstChargeTimeIndex = _findWorstChargeTimeIndex(data);
+
               return SizedBox(
                 height: 140,
                 child: ListView.separated(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: data.length,
-                  itemBuilder: (context, index) =>
-                      CarbonIntensityCard(carbonIntensity: data[index]),
+                  itemBuilder: (context, index) => CarbonIntensityCard(
+                    carbonIntensity: data[index],
+                    isBestChargeTime: index == bestChargeTimeIndex,
+                    isWorstChargeTime: index == worstChargeTimeIndex,
+                  ),
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 8),
                 ),
@@ -48,7 +72,6 @@ class CarbonIntensitySection extends StatelessWidget {
             } else if (snapshot.hasError) {
               return const CarbonIntensityEmptyWarning();
             }
-
             return const Center(child: CircularProgressIndicator());
           },
         ),

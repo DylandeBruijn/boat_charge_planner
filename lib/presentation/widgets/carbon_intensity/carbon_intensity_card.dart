@@ -4,18 +4,41 @@ import 'package:flutter/material.dart';
 
 class CarbonIntensityCard extends StatelessWidget {
   final CarbonIntensity carbonIntensity;
+  final bool isBestChargeTime;
+  final bool isWorstChargeTime;
 
-  const CarbonIntensityCard({super.key, required this.carbonIntensity});
+  const CarbonIntensityCard({
+    super.key,
+    required this.carbonIntensity,
+    this.isBestChargeTime = false,
+    this.isWorstChargeTime = false,
+  });
+
+  Color _getBorderColor(BuildContext context) {
+    if (isBestChargeTime) {
+      return Colors.green.shade600;
+    } else if (isWorstChargeTime) {
+      return Colors.red.shade600;
+    }
+    return Theme.of(context).colorScheme.surfaceContainerHigh;
+  }
+
+  Color _getBackgroundColor(BuildContext context) {
+    if (isBestChargeTime) {
+      return Colors.green.shade50;
+    } else if (isWorstChargeTime) {
+      return Colors.red.shade50;
+    }
+    return Theme.of(context).colorScheme.surfaceContainerLow;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        border: Border.all(
-          color: Theme.of(context).colorScheme.surfaceContainerHigh,
-        ),
+        color: _getBackgroundColor(context),
+        border: Border.all(color: _getBorderColor(context), width: 2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
