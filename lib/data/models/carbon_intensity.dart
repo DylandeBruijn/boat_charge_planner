@@ -13,7 +13,7 @@ class Intensity {
         'index': String index,
       } =>
         Intensity(forecast: forecast, actual: actual, index: index),
-      _ => throw FormatException('Invalid JSON format for Intensity'),
+      _ => throw const FormatException('Invalid JSON format for Intensity'),
     };
   }
 
@@ -46,7 +46,9 @@ class CarbonIntensity {
           to: DateTime.parse(to),
           intensity: Intensity.fromJson(intensity),
         ),
-      _ => throw FormatException('Invalid JSON format for CarbonIntensity'),
+      _ => throw const FormatException(
+        'Invalid JSON format for CarbonIntensity',
+      ),
     };
   }
 
@@ -66,7 +68,7 @@ class CarbonIntensityApiError {
     return switch (json) {
       {'code': String code, 'message': String message} =>
         CarbonIntensityApiError(code: code, message: message),
-      _ => throw FormatException('Invalid JSON format for Error'),
+      _ => throw const FormatException('Invalid JSON format for Error'),
     };
   }
 }
@@ -85,7 +87,7 @@ class CarbonIntensityApiResponse {
             )
             .toList(),
       ),
-      _ => throw FormatException(
+      _ => throw const FormatException(
         'Invalid JSON format for CarbonIntensityResponse',
       ),
     };
@@ -102,7 +104,7 @@ class CarbonIntensityApiErrorResponse {
       {'error': Map<String, dynamic> error} => CarbonIntensityApiErrorResponse(
         error: CarbonIntensityApiError.fromJson(error),
       ),
-      _ => throw FormatException('Invalid JSON format for ErrorResponse'),
+      _ => throw const FormatException('Invalid JSON format for ErrorResponse'),
     };
   }
 }
