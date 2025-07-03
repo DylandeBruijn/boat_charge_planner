@@ -1,6 +1,6 @@
 import 'package:boat_charge_planner/data/models/carbon_intensity.dart';
 import 'package:boat_charge_planner/presentation/widgets/carbon_intensity/carbon_intensity_card.dart';
-import 'package:boat_charge_planner/presentation/widgets/carbon_intensity/carbon_intensity_empty_warning.dart';
+import 'package:boat_charge_planner/presentation/widgets/carbon_intensity/carbon_intensity_status_alert.dart';
 import 'package:flutter/material.dart';
 
 class CarbonIntensitySection extends StatelessWidget {
@@ -51,6 +51,17 @@ class CarbonIntensitySection extends StatelessWidget {
           child: FutureBuilder<List<CarbonIntensity>>(
             future: carbonIntensity,
             builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (snapshot.hasError) {
+                return const CarbonIntensityStatusAlert(
+                  status: Status.error,
+                  message: 'Error loading carbon intensity data',
+                );
+              }
+
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 final data = snapshot.data!;
                 final bestChargeTimeIndex = _findBestChargeTimeIndex(data);
@@ -68,10 +79,12 @@ class CarbonIntensitySection extends StatelessWidget {
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 8),
                 );
-              } else if (snapshot.hasError) {
-                return const CarbonIntensityEmptyWarning();
               }
-              return const Center(child: CircularProgressIndicator());
+
+              return const CarbonIntensityStatusAlert(
+                status: Status.warning,
+                message: 'No carbon intensity data available',
+              );
             },
           ),
         ),
