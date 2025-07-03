@@ -64,7 +64,6 @@ class _MarkerBottomSheetState extends State<MarkerBottomSheet> {
             onClose: widget.onClose,
             onRemove: widget.onRemove,
           ),
-          SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
     );

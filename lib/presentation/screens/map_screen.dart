@@ -67,12 +67,14 @@ class _MapScreenState extends State<MapScreen> {
         title: 'Boat Charge Planner',
         icon: Icons.directions_boat,
       ),
-      body: Map(
-        markers: _markers,
-        center: _center,
-        onMapCreated: _initializeMapController,
-        onLongPress: _createMarker,
-        zoom: 6.0,
+      body: SafeArea(
+        child: Map(
+          markers: _markers,
+          center: _center,
+          onMapCreated: _initializeMapController,
+          onLongPress: _createMarker,
+          zoom: 6.0,
+        ),
       ),
     );
   }
