@@ -46,17 +46,17 @@ class CarbonIntensitySection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
         ],
-        FutureBuilder<List<CarbonIntensity>>(
-          future: carbonIntensity,
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-              final data = snapshot.data!;
-              final bestChargeTimeIndex = _findBestChargeTimeIndex(data);
-              final worstChargeTimeIndex = _findWorstChargeTimeIndex(data);
+        SizedBox(
+          height: 140,
+          child: FutureBuilder<List<CarbonIntensity>>(
+            future: carbonIntensity,
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                final data = snapshot.data!;
+                final bestChargeTimeIndex = _findBestChargeTimeIndex(data);
+                final worstChargeTimeIndex = _findWorstChargeTimeIndex(data);
 
-              return SizedBox(
-                height: 140,
-                child: ListView.separated(
+                return ListView.separated(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: data.length,
@@ -67,13 +67,13 @@ class CarbonIntensitySection extends StatelessWidget {
                   ),
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 8),
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return const CarbonIntensityEmptyWarning();
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
+                );
+              } else if (snapshot.hasError) {
+                return const CarbonIntensityEmptyWarning();
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ],
     );
