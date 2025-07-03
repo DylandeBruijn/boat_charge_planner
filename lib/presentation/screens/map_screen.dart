@@ -2,7 +2,7 @@ import 'package:boat_charge_planner/data/models/carbon_intensity.dart';
 import 'package:boat_charge_planner/data/repositories/carbon_intensity_repository.dart';
 import 'package:boat_charge_planner/presentation/widgets/custom_app_bar.dart';
 import 'package:boat_charge_planner/presentation/widgets/map.dart';
-import 'package:boat_charge_planner/presentation/widgets/marker_dialog.dart';
+import 'package:boat_charge_planner/presentation/widgets/marker_bottom_sheet/marker_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
@@ -34,8 +34,11 @@ class _MapScreenState extends State<MapScreen> {
         Marker(
           markerId: MarkerId(markerId),
           position: position,
-          onTap: () =>
-              _showMarkerDialog(markerId, markerNumber, markerCarbonIntensity),
+          onTap: () => _showMarkerBottomSheet(
+            markerId,
+            markerNumber,
+            markerCarbonIntensity,
+          ),
         ),
       );
     });
@@ -47,15 +50,15 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  void _showMarkerDialog(
+  void _showMarkerBottomSheet(
     String markerId,
     int markerNumber,
     List<CarbonIntensity> carbonIntensity,
   ) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return MarkerDialog(
+        return MarkerBottomSheet(
           markerNumber: markerNumber,
           markerId: markerId,
           carbonIntensity: carbonIntensity,
@@ -72,7 +75,10 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(
+        title: 'Boat Charge Planner',
+        icon: Icons.directions_boat,
+      ),
       body: Map(
         markers: _markers,
         center: _center,

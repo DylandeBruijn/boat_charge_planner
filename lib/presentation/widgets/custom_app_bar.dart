@@ -1,36 +1,28 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final String title;
+  final IconData icon;
+
+  const CustomAppBar({super.key, required this.title, required this.icon});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Row(
         children: [
-          const Icon(Icons.directions_boat, color: Colors.white, size: 28),
-          const SizedBox(width: 8),
-          const Text(
-            'Boat Charge Planner',
-            style: TextStyle(
-              color: Colors.white,
+          Icon(icon, color: Theme.of(context).colorScheme.onPrimary, size: 32),
+          const SizedBox(width: 16),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         ],
       ),
-      flexibleSpace: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFF1e3c72), Color(0xFF2a5298), Color(0xFF4a90e2)],
-          ),
-        ),
-      ),
-      elevation: 8,
-      shadowColor: Colors.black26,
     );
   }
 
