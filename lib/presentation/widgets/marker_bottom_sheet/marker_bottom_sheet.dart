@@ -1,14 +1,14 @@
 import 'package:boat_charge_planner/data/models/carbon_intensity.dart';
+import 'package:boat_charge_planner/data/repositories/carbon_intensity_repository.dart';
 import 'package:boat_charge_planner/presentation/widgets/marker_bottom_sheet/marker_bottom_sheet_handle.dart';
 import 'package:boat_charge_planner/presentation/widgets/marker_bottom_sheet/marker_bottom_sheet_action_buttons.dart';
 import 'package:boat_charge_planner/presentation/widgets/marker_bottom_sheet/marker_bottom_sheet_header.dart';
 import 'package:boat_charge_planner/presentation/widgets/carbon_intensity/carbon_intensity_section.dart';
 import 'package:flutter/material.dart';
 
-class MarkerBottomSheet extends StatelessWidget {
+class MarkerBottomSheet extends StatefulWidget {
   final int markerNumber;
   final String markerId;
-  final List<CarbonIntensity> carbonIntensity;
   final VoidCallback onClose;
   final VoidCallback onRemove;
 
@@ -16,10 +16,22 @@ class MarkerBottomSheet extends StatelessWidget {
     super.key,
     required this.markerNumber,
     required this.markerId,
-    required this.carbonIntensity,
     required this.onClose,
     required this.onRemove,
   });
+
+  @override
+  State<MarkerBottomSheet> createState() => _MarkerBottomSheetState();
+}
+
+class _MarkerBottomSheetState extends State<MarkerBottomSheet> {
+  late Future<List<CarbonIntensity>> carbonIntensity;
+
+  @override
+  void initState() {
+    super.initState();
+    carbonIntensity = CarbonIntensityApiRepository().getTodaysCarbonIntensity();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +52,7 @@ class MarkerBottomSheet extends StatelessWidget {
           const SizedBox(height: 16),
           MarkerBottomSheetHeader(
             icon: Icons.battery_charging_full,
-            title: 'Charge Point $markerNumber',
+            title: 'Charge Point ${widget.markerNumber}',
           ),
           const SizedBox(height: 16),
           CarbonIntensitySection(
@@ -48,7 +60,10 @@ class MarkerBottomSheet extends StatelessWidget {
             carbonIntensity: carbonIntensity,
           ),
           const SizedBox(height: 16),
-          MarkerBottomSheetActionButtons(onClose: onClose, onRemove: onRemove),
+          MarkerBottomSheetActionButtons(
+            onClose: widget.onClose,
+            onRemove: widget.onRemove,
+          ),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),

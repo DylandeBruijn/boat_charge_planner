@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class CarbonIntensitySection extends StatelessWidget {
   final String? title;
-  final List<CarbonIntensity> carbonIntensity;
+  final Future<List<CarbonIntensity>> carbonIntensity;
 
   const CarbonIntensitySection({
     super.key,
@@ -28,11 +28,30 @@ class CarbonIntensitySection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
         ],
-        if (carbonIntensity.isNotEmpty) ...[
-          CarbonIntensityCard(carbonIntensity: carbonIntensity),
-          const SizedBox(height: 8),
-        ] else
-          const CarbonIntensityEmptyWarning(),
+        FutureBuilder<List<CarbonIntensity>>(
+          future: carbonIntensity,
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+              final data = snapshot.data!;
+              return SizedBox(
+                height: 140,
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: data.length,
+                  itemBuilder: (context, index) =>
+                      CarbonIntensityCard(carbonIntensity: data[index]),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 8),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return const CarbonIntensityEmptyWarning();
+            }
+
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ],
     );
   }

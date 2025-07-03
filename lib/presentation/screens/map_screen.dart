@@ -26,19 +26,13 @@ class _MapScreenState extends State<MapScreen> {
   void _createMarker(LatLng position) async {
     final markerId = const Uuid().v4();
     final markerNumber = _markers.length + 1;
-    final markerCarbonIntensity = await CarbonIntensityApiRepository()
-        .getTodaysCarbonIntensity();
 
     setState(() {
       _markers.add(
         Marker(
           markerId: MarkerId(markerId),
           position: position,
-          onTap: () => _showMarkerBottomSheet(
-            markerId,
-            markerNumber,
-            markerCarbonIntensity,
-          ),
+          onTap: () => _showMarkerBottomSheet(markerId, markerNumber),
         ),
       );
     });
@@ -50,18 +44,13 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  void _showMarkerBottomSheet(
-    String markerId,
-    int markerNumber,
-    List<CarbonIntensity> carbonIntensity,
-  ) {
+  void _showMarkerBottomSheet(String markerId, int markerNumber) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return MarkerBottomSheet(
           markerNumber: markerNumber,
           markerId: markerId,
-          carbonIntensity: carbonIntensity,
           onClose: () => Navigator.of(context).pop(),
           onRemove: () {
             Navigator.of(context).pop();
