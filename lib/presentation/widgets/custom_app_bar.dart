@@ -30,7 +30,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Content
                 Text(
                   'Boat Charge Planner helps you find the best time to charge your boat to reduce carbon emissions:',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
