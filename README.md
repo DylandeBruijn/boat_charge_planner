@@ -7,8 +7,8 @@ A Flutter mobile application for planning boat charging based on the Carbon Inte
 This app helps users plan when to charge their boats by displaying:
 
 - An interactive map focused on the UK
-- Carbon intensity data for selected locations
-- Predicted carbon intensity graphs for optimal charging times
+- Carbon intensity data for today
+- Predicted carbon intensity for optimal charging times
 
 ## Implementation Steps
 
@@ -18,8 +18,6 @@ This app helps users plan when to charge their boats by displaying:
 
    - `google_maps_flutter` - for displaying the map
    - `http` - for API calls to get carbon intensity data
-   - `fl_chart` - for displaying the carbon intensity graphs
-   - `geolocator` - for handling location services
 
 2. **Configure platform-specific settings:**
    - Android: Add Google Maps API key to `android/app/src/main/AndroidManifest.xml`
@@ -45,43 +43,35 @@ This app helps users plan when to charge their boats by displaying:
    - Implement API service class for fetching data
 
 6. **Create carbon intensity display:**
-   - Design a pin/info window that shows current carbon intensity
+   - Design an element that shows current carbon intensity
    - Display the intensity value with appropriate units (gCO2/kWh)
 
-### Phase 4: Graph Implementation
+### Phase 4: UI/UX Polish
 
-7. **Implement carbon intensity prediction graph:**
-
-   - Use `fl_chart` to create a line chart
-   - Show predicted carbon intensity over time (next 24-48 hours)
-   - Add proper styling and labels
-
-8. **Create pin information overlay:**
-   - Design a modal or overlay that appears when pin is tapped (infowindow)
-   - Include both current intensity and the prediction graph
-   - Add close functionality
-
-### Phase 5: UI/UX Polish
-
-9. **Enhance the user interface:**
+7. **Enhance the user interface:**
 
    - Add proper app title and branding
    - Implement loading states for API calls
    - Add error handling for failed API requests
-   - Style the map pins and information displays
 
-10. **Potential additional features:**
+8. **Potential additional features:**
     - Implement pin management (remove pins, list all pins)
     - Add search functionality for specific UK locations
     - Include a legend or help section explaining carbon intensity values
+    - Style the map pins and information displays
+    - Turn data fetching into Stream to get data in the background
+    - Add caching (LocalStorage) of pins
+    - Fix scrolling issues on web
+    - Add offline functionality
+    - Cluster pins when they overlap
 
 ### Phase 6: Testing & Debugging
 
-11. **Test the application:**
+9. **Test the application:**
 
     - Test on both Android and iOS simulators
     - Verify map interactions work correctly
     - Test API integration and error handling
 
-12. **Prepare for demo:**
+10. **Prepare for demo:**
     - Practice using VS Code debugger and toolchain
