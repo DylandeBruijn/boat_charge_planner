@@ -91,6 +91,3 @@ This app helps users plan when to charge their boats by displaying:
     - Test on both Android and iOS simulators
     - Verify map interactions work correctly
     - Test API integration and error handling
-
-10. **Prepare for demo:**
-    - Practice using VS Code debugger and toolchain
