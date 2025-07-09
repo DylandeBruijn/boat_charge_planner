@@ -10,6 +10,25 @@ This app helps users plan when to charge their boats by displaying:
 - Carbon intensity data for selected locations
 - Predicted carbon intensity graphs for optimal charging times
 
+## Screenshots
+
+<div align="center">
+  <img src="map.png" alt="Map Screen" width="300"/>
+  <p><em>Interactive map with UK focus</em></p>
+  
+  <img src="help.png" alt="Help Screen" width="300"/>
+  <p><em>Help and guidance section</em></p>
+  
+  <img src="marker.png" alt="Marker Detail" width="300"/>
+  <p><em>Location marker with carbon intensity data</em></p>
+  
+  <img src="filter.png" alt="Filter Options" width="300"/>
+  <p><em>Filter and search functionality</em></p>
+  
+  <img src="worst.png" alt="Carbon Intensity Alert" width="300"/>
+  <p><em>High carbon intensity warning</em></p>
+</div>
+
 ## Implementation Steps
 
 ### Phase 1: Project Setup & Dependencies
